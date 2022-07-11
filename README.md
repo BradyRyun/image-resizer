@@ -20,7 +20,16 @@ optional arguments:
                         Use if the path specified should recursively update all nested directories.
 ```
 
-### 
+### Single file
+
+```angular2html
+$ python main.py --path /path/to/image.png --height 64 --width 64
+```
+
+### Single directory
+```angular2html
+$ python main.py --path /path/to/dir/ --height 64 --width 64
+```
 
 #### Top-level Usage
 ```angular2html
