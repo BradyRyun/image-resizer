@@ -8,31 +8,35 @@
 `pip install Pillow`
   
 ### Usage
-``` bash
-usage: main.py [-h] --path PATH --height HEIGHT --width WIDTH [--top-level TOP_LEVEL]
+```
+$ python main.py --help
+usage: main.py [-h] --path PATH --height HEIGHT --width WIDTH [--recursive RECURSIVE]
+               [--sampler {LANCZOS,HAMMING,BICUBIC,BILINEAR,BOX,NEAREST}]
 
 optional arguments:
   -h, --help            show this help message and exit
   --path PATH           Path to get files from
   --height HEIGHT       Height to resize files to.
   --width WIDTH         Width to resize files to.
-  --top-level TOP_LEVEL
-                        Use if the path specified should recursively update all nested directories.
+  --recursive           Use if the path specified should recursively update all nested directories.
+  --sampler {LANCZOS,HAMMING,BICUBIC,BILINEAR,BOX,NEAREST}
+                        Specify a specific resampler. Default: LANCZOS
+
 ```
 
 ### Single file
 
-```angular2html
+```bash
 $ python main.py --path /path/to/image.png --height 64 --width 64
 ```
 
 ### Single directory
-```angular2html
-$ python main.py --path /path/to/dir/ --height 64 --width 64
+```bash
+$ python main.py --path /path/to/dir --height 64 --width 64
 ```
 
 #### Top-level Usage
-```angular2html
+```
 # Beginning:
 └───dir
     ├───dir3
@@ -40,8 +44,8 @@ $ python main.py --path /path/to/dir/ --height 64 --width 64
     └───dir4
         └───image.png
 ```
-```
-$ python main.py --path ./dir --height 64 --width 64 --top-level True
+``` bash
+$ python main.py --path /path/to/dir --height 64 --width 64 --recursive True
 
 └───dir
     ├───dir3

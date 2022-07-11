@@ -19,7 +19,7 @@ if __name__ == '__main__':
     args.add_argument("--recursive",
                       help="Use if the path specified should recursively update all nested directories.",
                       required=False,
-                      type=bool)
+                      action="store_true")
     args.add_argument("--sampler", help="Specify a specific resampler. Default: LANCZOS",
                       required=False,
                       default="LANCZOS",
