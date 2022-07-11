@@ -16,7 +16,7 @@ if __name__ == '__main__':
                       help="Width to resize files to.",
                       required=True,
                       type=int)
-    args.add_argument("--top-level",
+    args.add_argument("--recursive",
                       help="Use if the path specified should recursively update all nested directories.",
                       required=False,
                       type=bool)
@@ -36,8 +36,8 @@ if __name__ == '__main__':
     p = parsed.path
     h = parsed.height
     w = parsed.width
-    tl = parsed.top_level
     s = parsed.sampler
+    r = parsed.recursive
 
     resizer = Resizer(height=h, width=w, sampler=s)
 
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         file = p.split('/')[-1]
         d = "/".join(p.split('/')[:-1])
         resizer.resize(d, file)
-    if tl:
+    if r:
         resizer.recursively_resize(p)
     else:
         files = resizer.get_images_in_path(p)
