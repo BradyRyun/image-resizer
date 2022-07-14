@@ -1,4 +1,4 @@
-from os import path, walk, listdir
+from os import path, walk, listdir, remove
 from PIL import Image
 
 
@@ -12,9 +12,10 @@ class Resizer:
         "NEAREST": Image.Resampling.NEAREST
     }
 
-    def __init__(self, height, width, sampler):
+    def __init__(self, height, width, sampler, remove_old):
         self.height = height
         self.width = width
+        self.remove_old = remove_old
         self.sampler = self.resizers[sampler]
 
     def is_image(self, file):
@@ -31,7 +32,7 @@ class Resizer:
     def resize_images(self, dirPath):
         files = self.get_images_in_path(dirPath)
         for file in files:
-            self.resize(dirPath)
+            self.resize(dirPath, file)
 
     def resize(self, directory, file):
         image = Image.open(path.join(directory, file))
@@ -41,6 +42,8 @@ class Resizer:
         extension = split[1]
         img_resized = image.resize((self.height, self.width), resample=self.sampler)
         img_resized.save(path.join(directory, f"{name}-{self.height}x{self.width}.{extension}"))
+        if self.remove_old:
+            remove(path.join(directory, file))
 
     def recursively_resize(self, dir):
         dirs = self.get_folders_in_dir(dir)

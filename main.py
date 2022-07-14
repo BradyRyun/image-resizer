@@ -31,6 +31,10 @@ if __name__ == '__main__':
                           "BOX",
                           "NEAREST"
                       ])
+    args.add_argument("--remove",
+                      help="Use if you'd like to remove the original image.",
+                      required=False,
+                      action="store_true")
 
     parsed = args.parse_args()
     p = parsed.path
@@ -38,8 +42,9 @@ if __name__ == '__main__':
     w = parsed.width
     s = parsed.sampler
     r = parsed.recursive
+    rm = parsed.remove
 
-    resizer = Resizer(height=h, width=w, sampler=s)
+    resizer = Resizer(height=h, width=w, sampler=s, remove_old=rm)
 
     if resizer.is_image(p):
         file = p.split('/')[-1]
@@ -48,5 +53,4 @@ if __name__ == '__main__':
     if r:
         resizer.recursively_resize(p)
     else:
-        files = resizer.get_images_in_path(p)
-        resizer.resize_images(p)
+        files = resizer.resize_images(p)
